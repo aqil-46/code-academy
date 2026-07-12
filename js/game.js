@@ -8,6 +8,8 @@ const Game = {
   audioContext: null,
   timerInterval: null,
   timerSeconds: 0,
+  _typewriterTimeouts: [],
+  _typewriterActive: false,
 
   diffLabels: { easy: 'Easy', normal: 'Normal', hard: 'Hard' },
   diffColors: { easy: 'var(--success)', normal: 'var(--warning)', hard: 'var(--danger)' },
@@ -28,6 +30,108 @@ const Game = {
 
     this.setupKeyboard();
     this.initAudio();
+    this.createParticles();
+  },
+
+  // ========== BACKGROUND PARTICLES ==========
+  particleInterval: null,
+
+  createParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+
+    // Clear old particles
+    if (this.particleInterval) {
+      clearInterval(this.particleInterval);
+    }
+    container.innerHTML = '';
+
+    const colors = ['#7C6FF7', '#00E5DF', '#FF6B9D', '#00d4a0', '#ffc857', '#6cb4ff'];
+    const symbols = ['{', '}', '<', '>', '/', '_', '=', '+', '~', '*'];
+
+    // Create static floating dots
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle static';
+      const size = Math.random() * 3 + 3;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        color: ${color};
+        opacity: ${0.3 + Math.random() * 0.4};
+        animation-delay: ${Math.random() * 5}s;
+        animation-duration: ${4 + Math.random() * 4}s;
+      `;
+      container.appendChild(p);
+    }
+
+    // Create floating code symbols
+    for (let i = 0; i < 15; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle code-symbol';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        font-size: ${8 + Math.random() * 10}px;
+        color: ${colors[Math.floor(Math.random() * colors.length)]};
+        animation-delay: ${Math.random() * 8}s;
+        animation-duration: ${8 + Math.random() * 8}s;
+      `;
+      p.style.opacity = 0.08 + Math.random() * 0.12;
+      container.appendChild(p);
+    }
+
+    // Create twinkling stars
+    for (let i = 0; i < 12; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle twinkle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        width: ${2 + Math.random() * 2}px;
+        height: ${2 + Math.random() * 2}px;
+        animation-delay: ${Math.random() * 3}s;
+        animation-duration: ${2 + Math.random() * 3}s;
+      `;
+      container.appendChild(p);
+    }
+
+    // Continuously spawn new shooting particles
+    this.particleInterval = setInterval(() => {
+      // Only spawn if opening screen is active
+      const openingScreen = document.getElementById('opening-screen');
+      if (!openingScreen || !openingScreen.classList.contains('active')) return;
+
+      const p = document.createElement('div');
+      p.className = 'particle shoot';
+      const size = Math.random() * 3 + 2;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${-5}px;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        color: ${color};
+        animation-duration: ${3 + Math.random() * 3}s;
+      `;
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 7000);
+    }, 400);
+  },
+
+  // ========== AUDIO SYSTEM ==========
+  initAudio() {
+    try {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      console.warn('Audio not available');
+    }
   },
 
   setupNavigation() {
@@ -64,6 +168,35 @@ const Game = {
       if (settings[setting]) toggle.classList.add('active');
       else toggle.classList.remove('active');
     });
+
+    // Restore typing speed selection
+    document.querySelectorAll('.speed-selector').forEach(selector => {
+      const setting = selector.dataset.setting;
+      const saved = settings[setting] || 'normal';
+      selector.querySelectorAll('.speed-opt').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.value === saved);
+      });
+    });
+  },
+
+  // ========== TYPING SPEED ==========
+  getTypingDelay() {
+    const speed = Storage.getSettings().typingSpeed || 'normal';
+    switch (speed) {
+      case 'slow': return 60;
+      case 'fast': return 8;
+      default: return 25;
+    }
+  },
+
+  setTypingSpeed(value) {
+    // Update active state in UI
+    document.querySelectorAll('.speed-selector .speed-opt').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === value);
+    });
+    // Save to storage
+    Storage.updateSettings({ typingSpeed: value });
+    this.playSound('click');
   },
 
   setupKeyboard() {
@@ -107,18 +240,189 @@ const Game = {
 
   // ========== SCREEN MANAGEMENT ==========
   showScreen(screenId) {
-    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
-
+    const current = document.querySelector('.screen.active');
     const target = document.getElementById(screenId);
-    if (target) {
+    if (!target) return;
+
+    if (current && current !== target) {
+      current.classList.remove('active');
+      current.classList.add('animate-out');
+
+      setTimeout(() => {
+        current.classList.remove('animate-out');
+        target.classList.add('active');
+        this.currentScreen = screenId;
+
+        switch (screenId) {
+          case 'character-screen': CharacterCreator.init(); break;
+          case 'world-screen': this.updateWorldMap(); break;
+          case 'intro-screen': this.updateIntroAvatar(); break;
+        }
+      }, 350);
+    } else {
       target.classList.add('active');
       this.currentScreen = screenId;
+
+      switch (screenId) {
+        case 'character-screen': CharacterCreator.init(); break;
+        case 'world-screen': this.updateWorldMap(); break;
+        case 'intro-screen': this.updateIntroAvatar(); break;
+      }
+    }
+  },
+
+  // ========== INTRO AVATAR & TYPEWRITER ==========
+  updateIntroAvatar() {
+    const container = document.getElementById('intro-avatar');
+    if (!container) return;
+
+    const player = Storage.getPlayer();
+    const avatar = CharacterCreator.buildAvatar(
+      player.hair || 'spiky',
+      player.skin || 'light',
+      player.color || '#6C5CE7',
+      player.accessory || 'none',
+      2.2
+    );
+
+    container.innerHTML = `
+      <div class="intro-avatar-inner" style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div class="intro-avatar-preview" style="animation:float 3s ease-in-out infinite;">${avatar}</div>
+        <div class="intro-avatar-name" style="font-family:var(--cyber-font);font-size:0.7rem;color:var(--text-secondary);letter-spacing:2px;text-transform:uppercase;">${player.name || 'Programmer'}</div>
+      </div>
+    `;
+
+    // Start typewriter effect after a short delay
+    setTimeout(() => this.typewriteIntro(), 400);
+  },
+
+  // ========== TYPEWRITER EFFECT ==========
+  typewriteIntro() {
+    const cards = document.querySelectorAll('.intro-story-card');
+    if (!cards.length) return;
+
+    this._typewriterTimeouts = [];
+    this._typewriterActive = true;
+
+    // Show skip button
+    const skipBtn = document.getElementById('skip-typewriter');
+    if (skipBtn) {
+      skipBtn.classList.remove('hidden');
+      skipBtn.style.display = 'flex';
     }
 
-    switch (screenId) {
-      case 'character-screen': CharacterCreator.init(); break;
-      case 'world-screen': this.updateWorldMap(); break;
+    cards.forEach((card, index) => {
+      const textEl = card.querySelector('.intro-card-text');
+      if (!textEl) return;
+
+      const fullText = textEl.getAttribute('data-text');
+      if (!fullText) return;
+
+      // Clear and add typing cursor
+      textEl.innerHTML = '<span class="typewriter-cursor"></span>';
+
+      // Stagger start: proportional to typing speed (slower = more stagger)
+      const baseSpeed = this.getTypingDelay();
+      const staggerPerCard = baseSpeed * 40;
+      const startDelay = index * staggerPerCard;
+
+      const t1 = setTimeout(() => {
+        if (!this._typewriterActive) return;
+        this.playSound('click');
+        textEl.innerHTML = '';
+        this._typeText(textEl, fullText, 0, this.getTypingDelay());
+      }, startDelay);
+      this._typewriterTimeouts.push(t1);
+    });
+  },
+
+  _typeText(element, html, index, speed) {
+    if (!this._typewriterActive) return;
+
+    if (index >= html.length) {
+      // Add blinking cursor at the end
+      const cursor = document.createElement('span');
+      cursor.className = 'typewriter-cursor';
+      element.appendChild(cursor);
+
+      // Check if all cards are done, hide skip button
+      this._checkTypewriterDone();
+      return;
     }
+
+    // Handle HTML tags — add the whole tag at once
+    if (html[index] === '<') {
+      const closeTag = html.indexOf('>', index);
+      if (closeTag !== -1) {
+        element.innerHTML += html.substring(index, closeTag + 1);
+        const t = setTimeout(() => this._typeText(element, html, closeTag + 1, speed), speed);
+        this._typewriterTimeouts.push(t);
+        return;
+      }
+    }
+
+    // Add one character
+    const char = html[index];
+    element.innerHTML += char;
+
+    const delay = speed + Math.random() * 15;
+
+    if (Math.random() > 0.85) {
+      this.playSound('click');
+    }
+
+    const t = setTimeout(() => this._typeText(element, html, index + 1, speed), delay);
+    this._typewriterTimeouts.push(t);
+  },
+
+  _checkTypewriterDone() {
+    const cards = document.querySelectorAll('.intro-story-card');
+    const allDone = Array.from(cards).every(card => {
+      const textEl = card.querySelector('.intro-card-text');
+      if (!textEl) return true;
+      const fullText = textEl.getAttribute('data-text');
+      if (!fullText) return true;
+      // Check if the full text (without cursor) is rendered
+      const rendered = textEl.innerHTML.replace(/<span class="typewriter-cursor"><\/span>$/, '');
+      return rendered.length >= fullText.length - 10;
+    });
+
+    if (allDone) {
+      this._typewriterActive = false;
+      const skipBtn = document.getElementById('skip-typewriter');
+      if (skipBtn) {
+        skipBtn.classList.add('hidden');
+        setTimeout(() => { skipBtn.style.display = 'none'; }, 300);
+      }
+    }
+  },
+
+  // ========== SKIP TYPEWRITER ==========
+  skipTypewriter() {
+    this._typewriterActive = false;
+
+    // Cancel all pending timeouts
+    this._typewriterTimeouts.forEach(id => clearTimeout(id));
+    this._typewriterTimeouts = [];
+
+    // Show all text immediately in every card
+    const cards = document.querySelectorAll('.intro-story-card');
+    cards.forEach(card => {
+      const textEl = card.querySelector('.intro-card-text');
+      if (!textEl) return;
+      const fullText = textEl.getAttribute('data-text');
+      if (!fullText) return;
+      textEl.innerHTML = fullText + '<span class="typewriter-cursor typewriter-cursor-end"></span>';
+    });
+
+    // Hide skip button
+    const skipBtn = document.getElementById('skip-typewriter');
+    if (skipBtn) {
+      skipBtn.classList.add('hidden');
+      setTimeout(() => { skipBtn.style.display = 'none'; }, 300);
+    }
+
+    this.playSound('click');
   },
 
   // ========== DIFFICULTY SELECTION ==========
@@ -135,50 +439,65 @@ const Game = {
   updateWorldMap() {
     const map = document.getElementById('world-map-nodes');
     const diff = Storage.getDifficulty();
+    const progress = Storage.getProgress();
+    const completed = progress.completedLevels || [];
+    const totalLevels = 10;
+    const progressPct = Math.round((completed.length / totalLevels) * 100);
+
     const levelInfo = [
-      { num: 1, name: 'Welcome', icon: Icons.span(Icons.play, '32', 'var(--secondary)') },
-      { num: 2, name: 'Variable Room', icon: Icons.span(Icons.box, '32', 'var(--accent)') },
-      { num: 3, name: 'Input Output', icon: Icons.span(Icons.shuffle, '32', 'var(--secondary)') },
-      { num: 4, name: 'If Else', icon: Icons.span(Icons.gitBranch, '32', 'var(--warning)') },
-      { num: 5, name: 'Loop Factory', icon: Icons.span(Icons.repeat, '32', 'var(--secondary)') },
-      { num: 6, name: 'Debug Room', icon: Icons.span(Icons.bug, '32', 'var(--accent)') },
-      { num: 7, name: 'Function', icon: Icons.span(Icons.cpu, '32', 'var(--info)') },
-      { num: 8, name: 'Array Room', icon: Icons.span(Icons.database, '32', 'var(--info)') },
-      { num: 9, name: 'Object Lab', icon: Icons.span(Icons.cpu, '32', 'var(--warning)') },
-      { num: 10, name: 'Boss Battle', icon: Icons.span(Icons.sword, '32', 'var(--danger)') }
+      { num: 1, name: 'Welcome', icon: Icons.span(Icons.play, '26', 'var(--secondary)') },
+      { num: 2, name: 'Variable Room', icon: Icons.span(Icons.box, '26', 'var(--accent)') },
+      { num: 3, name: 'Input Output', icon: Icons.span(Icons.shuffle, '26', 'var(--secondary)') },
+      { num: 4, name: 'If Else', icon: Icons.span(Icons.gitBranch, '26', 'var(--warning)') },
+      { num: 5, name: 'Loop Factory', icon: Icons.span(Icons.repeat, '26', 'var(--secondary)') },
+      { num: 6, name: 'Debug Room', icon: Icons.span(Icons.bug, '26', 'var(--accent)') },
+      { num: 7, name: 'Function', icon: Icons.span(Icons.cpu, '26', 'var(--info)') },
+      { num: 8, name: 'Array Room', icon: Icons.span(Icons.database, '26', 'var(--info)') },
+      { num: 9, name: 'Object Lab', icon: Icons.span(Icons.cpu, '26', 'var(--warning)') },
+      { num: 10, name: 'Boss Battle', icon: Icons.span(Icons.sword, '26', 'var(--danger)') }
     ];
 
-    map.innerHTML = levelInfo.map(info => {
+    map.innerHTML = levelInfo.map((info, idx) => {
       const unlocked = Storage.isLevelUnlocked(info.num);
-      const completed = Storage.isLevelCompleted(info.num);
-      const current = info.num === Storage.getProgress().currentLevel;
+      const isCompleted = Storage.isLevelCompleted(info.num);
+      const isCurrent = info.num === progress.currentLevel;
 
       let statusClass = 'locked';
-      let statusText = `${Icons.mat('lock', '14')} Terkunci`;
+      let statusIcon = 'lock';
+      let statusText = 'Terkunci';
 
-      if (completed) {
+      if (isCompleted) {
         statusClass = 'completed';
-        statusText = `${Icons.mat('check_circle', '14')} Selesai`;
-      } else if (current && unlocked) {
-        statusClass = 'current';
-        statusText = `${Icons.mat('play_arrow', '14')} Mainkan`;
+        statusIcon = 'check_circle';
+        statusText = 'Selesai';
       } else if (unlocked) {
-        statusClass = '';
-        statusText = `${Icons.mat('play_arrow', '14')} Mainkan`;
+        statusClass = isCurrent ? 'current' : 'unlocked';
+        statusIcon = isCurrent ? 'play_circle' : 'play_arrow';
+        statusText = isCurrent ? 'Mainkan' : 'Buka';
       }
 
+      const animDelay = idx * 0.06;
+
       return `
-        <div class="map-node ${statusClass}" onclick="${unlocked || completed ? `Game.startLevel(${info.num})` : ''}">
-          <div class="node-icon">${info.icon}</div>
-          <div class="node-name">${info.name}</div>
-          <div class="node-status">${statusText}</div>
+        <div class="map-node ${statusClass}" onclick="${unlocked || isCompleted ? `Game.startLevel(${info.num})` : ''}" style="animation-delay: ${animDelay}s;">
+          <div class="map-node-number">${String(info.num).padStart(2, '0')}</div>
+          <div class="map-node-icon">${info.icon}</div>
+          <div class="map-node-name">${info.name}</div>
+          <div class="map-node-status">
+            <span class="material-symbols-outlined map-status-icon">${statusIcon}</span>
+            <span>${statusText}</span>
+          </div>
         </div>
       `;
     }).join('');
 
     // Update HUD
     document.getElementById('hud-score').textContent = Storage.getScore();
-    document.getElementById('hud-level').textContent = `Level ${Storage.getProgress().currentLevel}`;
+    document.getElementById('hud-level').textContent = `Level ${progress.currentLevel}`;
+    document.getElementById('hud-progress').textContent = `${progressPct}%`;
+    if (document.getElementById('hud-progress-bar')) {
+      document.getElementById('hud-progress-bar').style.width = `${progressPct}%`;
+    }
 
     const player = Storage.getPlayer();
     document.getElementById('hud-player').textContent = player.name;
@@ -580,24 +899,13 @@ const Game = {
 
   // ========== START NEW GAME ==========
   startNewGame() {
-    const data = Storage.startGame();
+    Storage.startGame();
     this.startTimer();
-
-    const player = Storage.getPlayer();
-    if (player.name && player.name !== 'Programmer') {
-      this.showScreen('intro-screen');
-    } else {
-      this.showScreen('character-screen');
-    }
+    this.showScreen('character-screen');
   },
 
   startFromIntro() {
-    const player = Storage.getPlayer();
-    if (player.name && player.name !== 'Programmer') {
-      this.showScreen('tutorial-screen');
-    } else {
-      this.showScreen('character-screen');
-    }
+    this.showScreen('tutorial-screen');
   },
 
   playAgain() {
