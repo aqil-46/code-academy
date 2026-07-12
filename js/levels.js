@@ -142,28 +142,28 @@ const Levels = {
 
   level3DataByDiff: {
     easy: [
-      { id: 1, input: 'input()', output: `${Icons.mat('edit_note', '16')} Membaca data dari user`, icon: Icons.mat('keyboard', '16') },
-      { id: 2, input: 'print()', output: `${Icons.mat('print', '16')} Menampilkan data ke layar`, icon: Icons.mat('desktop_windows', '16') },
-      { id: 3, input: 'int()', output: `${Icons.mat('tag', '16')} Mengubah ke angka`, icon: Icons.mat('tag', '16') },
-      { id: 4, input: 'str()', output: `${Icons.mat('description', '16')} Mengubah ke teks`, icon: Icons.mat('description', '16') },
-      { id: 5, input: 'len()', output: `${Icons.mat('straighten', '16')} Menghitung panjang`, icon: Icons.mat('straighten', '16') },
-      { id: 6, input: 'type()', output: `${Icons.mat('label', '16')} Mengecek tipe data`, icon: Icons.mat('label', '16') }
+      { id: 1, input: 'input()', output: 'Membaca data dari user' },
+      { id: 2, input: 'print()', output: 'Menampilkan data ke layar' },
+      { id: 3, input: 'int()', output: 'Mengubah ke angka' },
+      { id: 4, input: 'str()', output: 'Mengubah ke teks' },
+      { id: 5, input: 'len()', output: 'Menghitung panjang' },
+      { id: 6, input: 'type()', output: 'Mengecek tipe data' }
     ],
     normal: [
-      { id: 1, input: 'range()', output: `${Icons.mat('format_list_numbered', '16')} Membuat urutan angka`, icon: Icons.mat('format_list_numbered', '16') },
-      { id: 2, input: 'split()', output: `${Icons.mat('content_cut', '16')} Memecah string`, icon: Icons.mat('content_cut', '16') },
-      { id: 3, input: 'append()', output: `${Icons.mat('add_circle', '16')} Menambah item ke list`, icon: Icons.mat('add_circle', '16') },
-      { id: 4, input: 'float()', output: `${Icons.mat('decimal_increase', '16')} Mengubah ke desimal`, icon: Icons.mat('decimal_increase', '16') },
-      { id: 5, input: 'bool()', output: `${Icons.mat('toggle_on', '16')} Mengubah ke boolean`, icon: Icons.mat('toggle_on', '16') },
-      { id: 6, input: 'list()', output: `${Icons.mat('list', '16')} Mengubah ke list`, icon: Icons.mat('list', '16') }
+      { id: 1, input: 'range()', output: 'Membuat urutan angka' },
+      { id: 2, input: 'split()', output: 'Memecah string' },
+      { id: 3, input: 'append()', output: 'Menambah item ke list' },
+      { id: 4, input: 'float()', output: 'Mengubah ke desimal' },
+      { id: 5, input: 'bool()', output: 'Mengubah ke boolean' },
+      { id: 6, input: 'list()', output: 'Mengubah ke list' }
     ],
     hard: [
-      { id: 1, input: 'map()', output: `${Icons.mat('transform', '16')} Transformasi setiap elemen`, icon: Icons.mat('transform', '16') },
-      { id: 2, input: 'filter()', output: `${Icons.mat('filter_alt', '16')} Menyaring elemen`, icon: Icons.mat('filter_alt', '16') },
-      { id: 3, input: 'reduce()', output: `${Icons.mat('compress', '16')} Menggabungkan jadi satu nilai`, icon: Icons.mat('compress', '16') },
-      { id: 4, input: 'lambda', output: `${Icons.mat('functions', '16')} Fungsi anonim satu baris`, icon: Icons.mat('functions', '16') },
-      { id: 5, input: 'zip()', output: `${Icons.mat('join', '16')} Menggabungkan dua iterable`, icon: Icons.mat('join', '16') },
-      { id: 6, input: 'enumerate()', output: `${Icons.mat('pin', '16')} Iterable dengan index`, icon: Icons.mat('pin', '16') }
+      { id: 1, input: 'map()', output: 'Transformasi setiap elemen' },
+      { id: 2, input: 'filter()', output: 'Menyaring elemen' },
+      { id: 3, input: 'reduce()', output: 'Menggabungkan jadi satu nilai' },
+      { id: 4, input: 'lambda', output: 'Fungsi anonim satu baris' },
+      { id: 5, input: 'zip()', output: 'Menggabungkan dua iterable' },
+      { id: 6, input: 'enumerate()', output: 'Iterable dengan index' }
     ]
   },
 
@@ -610,81 +610,250 @@ const Levels = {
 
   // ========== LEVEL 8 & 9 DIFFICULTY ==========
 
-  level8Config: {
-    easy: {
-      code: `<div style="color: #6c6ca0;">// Array Bahasa Pemrograman</div>
+  level8Questions: {
+    easy: [
+      {
+        code: `<div style="color: #6c6ca0;">// Array Bahasa Pemrograman</div>
 <div><span style="color: #74b9ff;">let</span> bahasa = [<span style="color: #55efc4;">"Python"</span>, <span style="color: #55efc4;">"JavaScript"</span>, <span style="color: #55efc4;">"Java"</span>, <span style="color: #55efc4;">"C++"</span>];</div>
 <div style="color: #6c6ca0; margin-top: 8px;">// Index:    0           1            2        3</div>`,
-      question: 'Akses index berapa untuk mendapatkan "Java"?',
-      options: [0, 1, 2, 3],
-      correct: 2,
-      feedback: 'Benar! bahasa[2] = "Java". Index dimulai dari 0!',
-      wrongFeedback: 'Salah! Coba lihat urutan index: 0=Python, 1=JavaScript, 2=Java, 3=C++'
-    },
-    normal: {
-      code: `<div style="color: #6c6ca0;">// Array 2D (Matrix)</div>
-<div><span style="color: #74b9ff;">let</span> matrix = [</div>
-<div>  [<span style="color: #55efc4;">"A"</span>, <span style="color: #55efc4;">"B"</span>, <span style="color: #55efc4;">"C"</span>],</div>
-<div>  [<span style="color: #55efc4;">"D"</span>, <span style="color: #55efc4;">"E"</span>, <span style="color: #55efc4;">"F"</span>],</div>
-<div>  [<span style="color: #55efc4;">"G"</span>, <span style="color: #55efc4;">"H"</span>, <span style="color: #55efc4;">"I"</span>]</div>
-<div>];</div>`,
-      question: 'Bagaimana cara mengakses "E"?',
-      optionLabels: ['matrix[1][1]', 'matrix[2][2]', 'matrix[0][1]', 'matrix[1][0]'],
-      correct: 0,
-      feedback: 'Benar! matrix[1][1] = "E". Baris ke-1 (D,E,F), kolom ke-1!',
-      wrongFeedback: 'Ingat: baris dan kolom dimulai dari index 0!'
-    },
-    hard: {
-      code: `<div style="color: #6c6ca0;">// Destructuring + Spread</div>
-<div><span style="color: #74b9ff;">const</span> arr = [<span style="color: #ff6b6b;">1</span>, <span style="color: #ff6b6b;">2</span>, <span style="color: #ff6b6b;">3</span>, <span style="color: #ff6b6b;">4</span>, <span style="color: #ff6b6b;">5</span>];</div>
-<div><span style="color: #74b9ff;">const</span> [a, b, ...rest] = arr;</div>`,
-      question: 'Apa nilai rest?',
-      optionLabels: ['[3, 4, 5]', '[1, 2]', '[4, 5]', '[2, 3, 4, 5]'],
-      correct: 0,
-      feedback: 'Benar! a=1, b=2, rest mengambil sisanya: [3, 4, 5]!',
-      wrongFeedback: 'Destructuring: a ambil index 0, b ambil index 1, ...rest ambil sisanya!'
-    }
+        question: 'Akses index berapa untuk mendapatkan "Java"?',
+        options: ['0', '1', '2', '3'],
+        correct: '2',
+        feedback: 'Benar! bahasa[2] = "Java". Index dimulai dari 0!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let buah = ["Apel", "Mangga", "Jeruk", "Anggur"];</div>`,
+        question: 'Berapa panjang array <strong>buah</strong>?',
+        options: ['3', '4', '5', '2'],
+        correct: '4',
+        feedback: 'Benar! Ada 4 elemen: Apel(0), Mangga(1), Jeruk(2), Anggur(3) → buah.length = 4!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let angka = [10, 20, 30, 40, 50];</div>
+<div>angka[0] = 99;</div>`,
+        question: 'Setelah kode dijalankan, bagaimana isi array <strong>angka</strong>?',
+        options: ['[99, 20, 30, 40, 50]', '[10, 20, 30, 40, 50]', '[99, 99, 99, 99, 99]', 'Error'],
+        correct: '[99, 20, 30, 40, 50]',
+        feedback: 'Benar! angka[0] = 99 mengubah elemen pertama tanpa mempengaruhi yang lain!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let hewan = ["Kucing", "Anjing", "Ikan"];</div>
+<div>let hewanKedua = hewan[1];</div>`,
+        question: 'Apa nilai dari <strong>hewanKedua</strong>?',
+        options: ['"Kucing"', '"Anjing"', '"Ikan"', 'undefined'],
+        correct: '"Anjing"',
+        feedback: 'Benar! hewan[1] = "Anjing". Ingat, index dimulai dari 0! Kucing=0, Anjing=1, Ikan=2.'
+      }
+    ],
+    normal: [
+      {
+        code: `<div style="color: #6c6ca0;">let arr = [1, 2, 3];</div>
+<div>arr.push(4);</div>
+<div>arr.push(5);</div>`,
+        question: 'Setelah kode dijalankan, isi arr adalah?',
+        options: ['[1, 2, 3, 4, 5]', '[5, 4, 3, 2, 1]', '[1, 2, 3]', '[4, 5, 1, 2, 3]'],
+        correct: '[1, 2, 3, 4, 5]',
+        feedback: 'Benar! push() menambahkan elemen di akhir array!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let arr = [1, 2, 3];</div>
+<div>let last = arr.pop();</div>`,
+        question: 'Apa nilai <strong>last</strong> dan isi <strong>arr</strong> sekarang?',
+        options: ['last=3, arr=[1,2]', 'last=1, arr=[2,3]', 'last=3, arr=[1,2,3]', 'last=1, arr=[1,2,3]'],
+        correct: 'last=3, arr=[1,2]',
+        feedback: 'Benar! pop() menghapus dan mengembalikan elemen TERAKHIR array!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let arr = [10, 20, 30];</div>
+<div>arr.unshift(5);</div>`,
+        question: 'Sekarang isi arr adalah?',
+        options: ['[5, 10, 20, 30]', '[10, 20, 30, 5]', '[5, 10, 20, 30, 5]', '[10, 20, 30]'],
+        correct: '[5, 10, 20, 30]',
+        feedback: 'Benar! unshift() menambahkan elemen di AWAL array!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let arr = ["a", "b", "c", "d", "e"];</div>
+<div>let sliced = arr.slice(1, 4);</div>`,
+        question: 'Apa nilai <strong>sliced</strong>?',
+        options: ['["b", "c", "d"]', '["a", "b", "c"]', '["b", "c", "d", "e"]', '["c", "d", "e"]'],
+        correct: '["b", "c", "d"]',
+        feedback: 'Benar! slice(1,4) mengambil dari index 1 sampai SEBELUM index 4!'
+      }
+    ],
+    hard: [
+      {
+        code: `<div style="color: #6c6ca0;">const arr = [1, 2, 3, 4, 5];</div>
+<div>const [a, b, ...rest] = arr;</div>`,
+        question: 'Apa nilai <strong>a</strong>, <strong>b</strong>, dan <strong>rest</strong>?',
+        options: ['a=1, b=2, rest=[3,4,5]', 'a=1, b=2, rest=[1,2]', 'a=1, b=2, rest=[4,5]', 'a=[1,2], b=[3,4], rest=[5]'],
+        correct: 'a=1, b=2, rest=[3,4,5]',
+        feedback: 'Benar! Destructuring: a ambil index 0, b ambil index 1, ...rest ambil sisanya!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let arr1 = [1, 2];</div>
+<div>let arr2 = [3, 4];</div>
+<div>let combined = [...arr1, ...arr2];</div>`,
+        question: 'Apa nilai <strong>combined</strong>?',
+        options: ['[1, 2, 3, 4]', '[[1, 2], [3, 4]]', '[3, 4, 1, 2]', '[[1,2],[3,4]]'],
+        correct: '[1, 2, 3, 4]',
+        feedback: 'Benar! Spread operator (...) menyebarkan isi array menjadi elemen individual!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let numbers = [1, 2, 3, 4];</div>
+<div>let doubled = numbers.map(n => n * 2);</div>`,
+        question: 'Apa nilai <strong>doubled</strong>?',
+        options: ['[2, 4, 6, 8]', '[1, 2, 3, 4]', '[1, 4, 9, 16]', '[1, 2, 3, 4, 1, 2, 3, 4]'],
+        correct: '[2, 4, 6, 8]',
+        feedback: 'Benar! map() menjalankan fungsi pada setiap elemen dan menghasilkan array baru!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let ages = [15, 22, 17, 30, 12];</div>
+<div>let adults = ages.filter(age => age >= 18);</div>`,
+        question: 'Apa nilai <strong>adults</strong>?',
+        options: ['[22, 30]', '[15, 22, 17, 30, 12]', '[15, 17, 12]', '[22, 17, 30]'],
+        correct: '[22, 30]',
+        feedback: 'Benar! filter() membuat array baru hanya dengan elemen yang memenuhi kondisi (age >= 18)!'
+      }
+    ]
   },
 
-  level9Config: {
-    easy: {
-      code: `<div style="color: #6c6ca0;">let siswa = {</div>
+  level9Questions: {
+    easy: [
+      {
+        code: `<div style="color: #6c6ca0;">let siswa = {</div>
 <div>  nama: <span style="color: #55efc4;">"Budi"</span>,</div>
 <div>  umur: <span style="color: #ff6b6b;">16</span>,</div>
 <div>  kelas: <span style="color: #55efc4;">"X RPL"</span></div>
 <div style="color: #6c6ca0;">}</div>`,
-      question: 'Akses <strong>siswa.umur</strong> akan menghasilkan?',
-      options: ['"Budi"', '16', '"X RPL"'],
-      correct: '16',
-      feedback: 'Benar! siswa.umur = 16. Object menggunakan dot notation untuk akses properti!',
-      wrongHint: { 'Budi': 'siswa.nama = "Budi", bukan siswa.umur!', 'X RPL': 'siswa.kelas = "X RPL", bukan siswa.umur!' }
-    },
-    normal: {
-      code: `<div style="color: #6c6ca0;">let siswa = {</div>
+        question: 'Akses <strong>siswa.umur</strong> akan menghasilkan?',
+        options: ['"Budi"', '16', '"X RPL"', 'undefined'],
+        correct: '16',
+        feedback: 'Benar! siswa.umur = 16. Gunakan dot (.) untuk akses properti object!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let mobil = {</div>
+<div>  merk: <span style="color: #55efc4;">"Toyota"</span>,</div>
+<div>  tahun: <span style="color: #ff6b6b;">2020</span>,</div>
+<div>  warna: <span style="color: #55efc4;">"Merah"</span></div>
+<div style="color: #6c6ca0;">}</div>`,
+        question: 'Bagaimana cara mengakses properti <strong>merk</strong>?',
+        options: ['mobil.merk', 'mobil["tahun"]', 'mobil.warna', 'merk.mobil'],
+        correct: 'mobil.merk',
+        feedback: 'Benar! Gunakan namaObject.namaProperti untuk mengakses nilai!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let buku = {</div>
+<div>  judul: <span style="color: #55efc4;">"Harry Potter"</span>,</div>
+<div>  halaman: <span style="color: #ff6b6b;">500</span></div>
+<div style="color: #6c6ca0;">};</div>
+<div>buku.penerbit = <span style="color: #55efc4;">"Gramedia"</span>;</div>`,
+        question: 'Apa yang terjadi setelah kode terakhir dijalankan?',
+        options: ['Properti penerbit ditambahkan', 'Error', 'Property lama dihapus', 'Tidak terjadi apa-apa'],
+        correct: 'Properti penerbit ditambahkan',
+        feedback: 'Benar! Kamu bisa menambah properti baru ke object kapan saja dengan assignment!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let game = {</div>
+<div>  title: <span style="color: #55efc4;">"Code Academy"</span>,</div>
+<div>  level: <span style="color: #ff6b6b;">8</span></div>
+<div style="color: #6c6ca0;">}</div>`,
+        question: 'Akses properti <strong>title</strong> menggunakan bracket notation?',
+        options: ['game["title"]', 'game.title', 'game(title)', 'title.game'],
+        correct: 'game["title"]',
+        feedback: 'Benar! game["title"] = "Code Academy". Bracket notation menggunakan string!'
+      }
+    ],
+    normal: [
+      {
+        code: `<div style="color: #6c6ca0;">let siswa = {</div>
 <div>  nama: <span style="color: #55efc4;">"Budi"</span>,</div>
 <div>  alamat: {</div>
 <div>    kota: <span style="color: #55efc4;">"Jakarta"</span>,</div>
 <div>    kodePos: <span style="color: #ff6b6b;">12345</span></div>
 <div>  }</div>
 <div style="color: #6c6ca0;">}</div>`,
-      question: 'Akses <strong>siswa.alamat.kota</strong> menghasilkan?',
-      options: ['"Budi"', '"Jakarta"', '12345', 'undefined'],
-      correct: '"Jakarta"',
-      feedback: 'Benar! Nested object: siswa.alamat.kota = "Jakarta"!',
-      wrongHint: {}
-    },
-    hard: {
-      code: `<div style="color: #6c6ca0;">const calc = {</div>
+        question: 'Akses <strong>siswa.alamat.kota</strong> menghasilkan?',
+        options: ['"Jakarta"', '"Budi"', '12345', 'undefined'],
+        correct: '"Jakarta"',
+        feedback: 'Benar! Nested object: chain dot notation untuk mengakses properti bersarang!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let siswa = {</div>
+<div>  nama: <span style="color: #55efc4;">"Budi"</span>,</div>
+<div>  nilai: {</div>
+<div>    mtk: <span style="color: #ff6b6b;">85</span>,</div>
+<div>    ipa: <span style="color: #ff6b6b;">90</span></div>
+<div>  }</div>
+<div style="color: #6c6ca0;">}</div>`,
+        question: 'Akses nilai Matematika Budi?',
+        options: ['siswa.nilai.mtk', 'siswa["nilai"]["mtk"]', 'Keduanya benar', 'siswa.mtk'],
+        correct: 'Keduanya benar',
+        feedback: 'Benar! Bisa pakai dot: siswa.nilai.mtk ATAU bracket: siswa["nilai"]["mtk"]!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let key = "nama";</div>
+<div>let orang = { nama: "Sari", umur: 17 };</div>`,
+        question: 'Akses <strong>orang[key]</strong> menghasilkan?',
+        options: ['"Sari"', '17', '"nama"', 'undefined'],
+        correct: '"Sari"',
+        feedback: 'Benar! Bracket notation bisa menggunakan variabel sebagai key! orang["nama"] = "Sari"!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">let user = {</div>
+<div>  name: <span style="color: #55efc4;">"Alex"</span>,</div>
+<div>  greet() { <span style="color: #74b9ff;">return</span> <span style="color: #55efc4;">"Halo, "</span> + this.name; }</div>
+<div style="color: #6c6ca0;">}</div>`,
+        question: '<strong>user.greet()</strong> menghasilkan?',
+        options: ['"Halo, Alex"', '"Halo, "', '"Halo, user"', 'Error'],
+        correct: '"Halo, Alex"',
+        feedback: 'Benar! Method greet() mengakses this.name milik object itu sendiri!'
+      }
+    ],
+    hard: [
+      {
+        code: `<div style="color: #6c6ca0;">const calc = {</div>
 <div>  value: <span style="color: #ff6b6b;">10</span>,</div>
 <div>  add(n) { <span style="color: #74b9ff;">return</span> { ...this, value: this.value + n }; },</div>
 <div>  getValue() { <span style="color: #74b9ff;">return</span> this.value; }</div>
 <div style="color: #6c6ca0;">}</div>`,
-      question: '<strong>calc.add(5).getValue()</strong> menghasilkan?',
-      options: ['15', '10', 'Error', 'undefined'],
-      correct: '15',
-      feedback: 'Benar! add(5) return object baru dengan value: 10+5=15, lalu getValue() return 15!',
-      wrongHint: {}
-    }
+        question: '<strong>calc.add(5).getValue()</strong> menghasilkan?',
+        options: ['15', '10', 'Error', 'undefined'],
+        correct: '15',
+        feedback: 'Benar! add(5) return object baru dengan value: 10+5=15, lalu getValue() return 15!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">const obj1 = { x: 1 };</div>
+<div>const obj2 = obj1;</div>
+<div>obj2.x = 99;</div>`,
+        question: 'Sekarang <strong>obj1.x</strong> bernilai?',
+        options: ['99', '1', 'Error', 'undefined'],
+        correct: '99',
+        feedback: 'Benar! Object di-copy by reference. obj1 dan obj2 mengacu ke object yang SAMA!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">const person = {</div>
+<div>  name: <span style="color: #55efc4;">"Budi"</span>,</div>
+<div>  age: <span style="color: #ff6b6b;">17</span></div>
+<div style="color: #6c6ca0;">};</div>
+<div>const { name, age } = person;</div>`,
+        question: 'Apa nilai <strong>name</strong> setelah destructuring?',
+        options: ['"Budi"', '17', 'undefined', '"person"'],
+        correct: '"Budi"',
+        feedback: 'Benar! Destructuring object: const { name } = person → name = person.name!'
+      },
+      {
+        code: `<div style="color: #6c6ca0;">const data = {</div>
+<div>  items: [<span style="color: #ff6b6b;">1</span>, <span style="color: #ff6b6b;">2</span>, <span style="color: #ff6b6b;">3</span>],</div>
+<div>  getFirst() {</div>
+<div>    <span style="color: #74b9ff;">return</span> this.items[<span style="color: #ff6b6b;">0</span>];</div>
+<div>  }</div>
+<div style="color: #6c6ca0;">}</div>`,
+        question: '<strong>data.getFirst()</strong> menghasilkan?',
+        options: ['1', '[1, 2, 3]', '"items"', 'undefined'],
+        correct: '1',
+        feedback: 'Benar! this.items mengakses properti items milik object yang sama, [0] ambil elemen pertama!'
+      }
+    ]
   },
 
   // ========== INIT ==========
@@ -869,7 +1038,7 @@ const Levels = {
 
           <div id="io-inputs">
             ${data.map(item => `
-              <div class="io-item" data-id="${item.id}" data-type="input">${item.icon} ${item.input}</div>
+              <div class="io-item" data-id="${item.id}" data-type="input">${item.input}</div>
             `).join('')}
           </div>
 
@@ -1145,33 +1314,41 @@ const Levels = {
       <div class="debug-code" id="debug-code">
         ${bug.code.split('\n').map((line, i) => {
           const lineNum = i + 1;
-          const isBugLine = lineNum === bug.bugLine;
           return `<div>
             <span class="line-number">${lineNum}</span>
-            <span class="${isBugLine ? 'bug-line' : ''}" data-line="${lineNum}">${line.replace(/\/\/.*$/, '<span style="color: #6c6ca0;">$&</span>')}</span>
+            <span data-line="${lineNum}">${line.replace(/\/\/.*$/, '<span style="color: #6c6ca0;">$&</span>')}</span>
           </div>`;
         }).join('')}
       </div>
-      <div class="level-hint">${Icons.mat('lightbulb', '14')} ${bug.explanation}</div>
+      <div class="level-hint">${Icons.mat('lightbulb', '14')} Klik baris yang mengandung bug!</div>
     `;
 
-    const bugLines = container.querySelectorAll('.bug-line');
-    bugLines.forEach(el => {
+    const codeLines = container.querySelectorAll('#debug-code span[data-line]');
+    codeLines.forEach(el => {
       el.addEventListener('click', () => {
+        const lineNum = parseInt(el.dataset.line);
         if (el.classList.contains('found')) return;
-        el.classList.add('found');
-        this.state.foundCount++;
 
-        let points = 100;
-        let feedbackMsg = `${Icons.mat('check_circle', '16')} Bug ditemukan! ${bug.bugFix}`;
-        if (this.state.bugIndex === 0) {
-          points = 150;
-          feedbackMsg = `${Icons.mat('check_circle', '16')} Perfect! ${bug.bugFix}`;
+        if (lineNum === bug.bugLine) {
+          el.classList.add('found');
+          this.state.foundCount++;
+
+          let points = 100;
+          let feedbackMsg = `${Icons.mat('check_circle', '16')} Bug ditemukan! ${bug.bugFix}`;
+          if (this.state.bugIndex === 0) {
+            points = 150;
+            feedbackMsg = `${Icons.mat('check_circle', '16')} Perfect! ${bug.bugFix}`;
+          }
+
+          feedback.innerHTML = `<p style="color: var(--success);">${feedbackMsg} (+${points} poin)</p>`;
+          this.state.bugIndex++;
+          setTimeout(() => this.showDebugBug(), 1500);
+        } else {
+          Game.playSound('wrong');
+          el.style.background = 'rgba(255,107,107,0.15)';
+          feedback.innerHTML = `<p style="color: var(--danger);">${Icons.mat('cancel', '16')} Baris ini tidak ada bug! Coba baris lain.</p>`;
+          setTimeout(() => { el.style.background = 'transparent'; }, 500);
         }
-
-        feedback.innerHTML = `<p style="color: var(--success);">${feedbackMsg} (+${points} poin)</p>`;
-        this.state.bugIndex++;
-        setTimeout(() => this.showDebugBug(), 1500);
       });
     });
   },
@@ -1182,8 +1359,7 @@ const Levels = {
 
     return `
       <h3>${Icons.span(Icons.cpu, '28', 'var(--info)')} Function Machine</h3>
-      <p class="level-desc">Susun langkah-langkah berikut menjadi alur program yang benar!<br>
-        Urutan: <strong>${data.correctOrder.map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' → ')}</strong></p>
+      <p class="level-desc">Susun langkah-langkah berikut menjadi alur program yang benar!</p>
 
       <div class="function-container">
         <div class="function-flow" id="function-flow">
@@ -1292,81 +1468,170 @@ const Levels = {
     document.getElementById('level7-feedback').innerHTML = '';
   },
 
-  // ========== LEVEL 8 (ARRAY) ==========
+  // ========== LEVEL 8 (ARRAY - Multi Round) ==========
 
   getLevel8HTML() {
-    const conf = this.level8Config[Storage.getDifficulty()] || this.level8Config.easy;
-    const isSimple = conf.options !== undefined;
-
     return `
       <h3>${Icons.span(Icons.database, '28', 'var(--info)')} Array Room</h3>
       <p class="level-desc">Array menyimpan banyak data berurutan. Setiap data punya index (nomor urut) mulai dari 0.</p>
-      <div class="ifelse-container" id="level9-container" style="width: 100%; max-width: 500px;">
-        <div style="background: #0d0d1a; border-radius: 10px; padding: 16px; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 2; border: 1px solid rgba(108,92,231,0.3); text-align: center;">
-          ${conf.code}
-        </div>
-        <p style="text-align: center; color: var(--text-secondary);">${conf.question}</p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          ${isSimple
-            ? conf.options.map(i => `<button class="btn btn-ghost" onclick="Levels.answerArray(${i})">Index [${i}]</button>`).join('')
-            : conf.optionLabels.map((label, i) => `<button class="btn btn-ghost" onclick="Levels.answerArray(${i})">${label}</button>`).join('')
-          }
-        </div>
+      <div id="level8-container" style="width: 100%; max-width: 550px;">
+        <div id="level8-question-area"></div>
+      </div>
+      <div id="level8-feedback" style="margin-top: 15px;"></div>
+    `;
+  },
+
+  initLevel8() {
+    this.state.arrayRound = 0;
+    this.state.arrayCorrect = 0;
+    this.showArrayQuestion();
+  },
+
+  showArrayQuestion() {
+    const questions = this.level8Questions[Storage.getDifficulty()] || this.level8Questions.easy;
+    const feedback = document.getElementById('level8-feedback');
+
+    if (this.state.arrayRound >= questions.length) {
+      feedback.innerHTML = `<p style="color: var(--success); font-size: 1rem;">${Icons.mat('celebration', '16')} ${this.state.arrayCorrect} dari ${questions.length} benar! Array Master!</p>`;
+      Game.playSound('victory');
+      Game.addScore(100);
+      Game.completeLevel(8);
+      Game.showToast(`${Icons.mat('celebration', '16')} Level 8 Selesai!`, 'success');
+      return;
+    }
+
+    const q = questions[this.state.arrayRound];
+    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+    feedback.innerHTML = '';
+
+    const container = document.getElementById('level8-question-area');
+    container.innerHTML = `
+      <div style="background: #0d0d1a; border-radius: 10px; padding: 16px; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 2; border: 1px solid rgba(108,92,231,0.3); text-align: left;">
+        ${q.code}
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; color: var(--text-muted); font-size: 0.7rem;">
+        <span style="background: rgba(124,111,247,0.1); padding: 4px 12px; border-radius: 20px; font-family: var(--cyber-font);">
+          SOAL ${this.state.arrayRound + 1}/${questions.length}
+        </span>
+      </div>
+      <p style="text-align: center; color: var(--text-primary); margin: 16px 0;">${q.question}</p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        ${shuffledOptions.map(opt => `
+          <button class="btn btn-ghost" onclick="Levels.answerArray('${opt.replace(/'/g, "\\'")}')">${opt}</button>
+        `).join('')}
+      </div>
+    `;
+  },
+
+  answerArray(value) {
+    const questions = this.level8Questions[Storage.getDifficulty()] || this.level8Questions.easy;
+    const q = questions[this.state.arrayRound];
+    const feedback = document.getElementById('level8-feedback');
+    const buttons = document.querySelectorAll('#level8-question-area .btn');
+    buttons.forEach(btn => { btn.style.pointerEvents = 'none'; });
+
+    if (value === q.correct) {
+      Game.playSound('correct');
+      this.state.arrayCorrect++;
+      feedback.innerHTML = `<p style="color: var(--success);">${Icons.mat('check_circle', '16')} ${q.feedback}</p>`;
+      Game.addScore(25);
+    } else {
+      Game.playSound('wrong');
+      feedback.innerHTML = `<p style="color: var(--danger);">${Icons.mat('cancel', '16')} Hampir! Jawaban yang benar adalah: ${q.correct}</p>`;
+    }
+
+    buttons.forEach(btn => {
+      if (btn.textContent.trim().replace(/['"]/g, '') === q.correct.replace(/['"]/g, '')) {
+        btn.style.borderColor = 'var(--success)';
+        btn.style.background = 'rgba(0,212,160,0.1)';
+      }
+    });
+
+    this.state.arrayRound++;
+    setTimeout(() => this.showArrayQuestion(), 1500);
+  },
+
+  // ========== LEVEL 9 (OBJECT - Multi Round) ==========
+
+  getLevel9HTML() {
+    return `
+      <h3>${Icons.span(Icons.cpu, '28', 'var(--warning)')} Object Lab</h3>
+      <p class="level-desc">Object menyimpan data dengan pasangan <strong>key: value</strong>. Pilih jawaban yang tepat!</p>
+      <div id="level9-container" style="width: 100%; max-width: 550px;">
+        <div id="level9-question-area"></div>
       </div>
       <div id="level9-feedback" style="margin-top: 15px;"></div>
     `;
   },
 
-  answerArray(index) {
-    const conf = this.level8Config[Storage.getDifficulty()] || this.level8Config.easy;
-    const feedback = document.getElementById('level9-feedback');
-    if (index === conf.correct) {
-      Game.playSound('correct');
-      feedback.innerHTML = `<p style="color: var(--success);">${Icons.mat('check_circle', '16')} ${conf.feedback}</p>`;
-      Game.addScore(100);
-      Game.completeLevel(8);
-      Game.showToast(`${Icons.mat('check_circle', '16')} Level 8 Selesai!`, 'success');
-    } else {
-      Game.playSound('wrong');
-      feedback.innerHTML = `<p style="color: var(--danger);">${Icons.mat('cancel', '16')} ${conf.wrongFeedback}</p>`;
-    }
+  initLevel9() {
+    this.state.objectRound = 0;
+    this.state.objectCorrect = 0;
+    this.showObjectQuestion();
   },
 
-  // ========== LEVEL 9 (OBJECT) ==========
+  showObjectQuestion() {
+    const questions = this.level9Questions[Storage.getDifficulty()] || this.level9Questions.easy;
+    const feedback = document.getElementById('level9-feedback');
 
-  getLevel9HTML() {
-    const conf = this.level9Config[Storage.getDifficulty()] || this.level9Config.easy;
+    if (this.state.objectRound >= questions.length) {
+      feedback.innerHTML = `<p style="color: var(--success); font-size: 1rem;">${Icons.mat('celebration', '16')} ${this.state.objectCorrect} dari ${questions.length} benar! Object Master!</p>`;
+      Game.playSound('victory');
+      Game.addScore(100);
+      Game.completeLevel(9);
+      Game.showToast(`${Icons.mat('celebration', '16')} Level 9 Selesai!`, 'success');
+      return;
+    }
 
-    return `
-      <h3>${Icons.span(Icons.cpu, '28', 'var(--warning)')} Object Lab</h3>
-      <p class="level-desc">Object menyimpan data dengan pasangan <strong>key: value</strong>. Cocokkan properti dengan nilainya!</p>
-      <div class="ifelse-container" id="level10-container" style="width: 100%; max-width: 500px;">
-        <div style="background: #0d0d1a; border-radius: 10px; padding: 16px; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 2; border: 1px solid rgba(108,92,231,0.3);">
-          ${conf.code}
-        </div>
-        <p style="text-align: center; color: var(--text-secondary);">${conf.question}</p>
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-          ${conf.options.map(o => `<button class="btn btn-ghost" onclick="Levels.answerObject('${o.replace(/'/g, "\\'")}')">${o}</button>`).join('')}
-        </div>
+    const q = questions[this.state.objectRound];
+    const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+    feedback.innerHTML = '';
+
+    const container = document.getElementById('level9-question-area');
+    container.innerHTML = `
+      <div style="background: #0d0d1a; border-radius: 10px; padding: 16px; font-family: 'Courier New', monospace; font-size: 0.8rem; line-height: 2; border: 1px solid rgba(108,92,231,0.3); text-align: left;">
+        ${q.code}
       </div>
-      <div id="level10-feedback" style="margin-top: 15px;"></div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; color: var(--text-muted); font-size: 0.7rem;">
+        <span style="background: rgba(124,111,247,0.1); padding: 4px 12px; border-radius: 20px; font-family: var(--cyber-font);">
+          SOAL ${this.state.objectRound + 1}/${questions.length}
+        </span>
+      </div>
+      <p style="text-align: center; color: var(--text-primary); margin: 16px 0;">${q.question}</p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        ${shuffledOptions.map(opt => `
+          <button class="btn btn-ghost" onclick="Levels.answerObject('${opt.replace(/'/g, "\\'")}')">${opt}</button>
+        `).join('')}
+      </div>
     `;
   },
 
   answerObject(value) {
-    const conf = this.level9Config[Storage.getDifficulty()] || this.level9Config.easy;
-    const feedback = document.getElementById('level10-feedback');
-    if (value === conf.correct) {
+    const questions = this.level9Questions[Storage.getDifficulty()] || this.level9Questions.easy;
+    const q = questions[this.state.objectRound];
+    const feedback = document.getElementById('level9-feedback');
+    const buttons = document.querySelectorAll('#level9-question-area .btn');
+    buttons.forEach(btn => { btn.style.pointerEvents = 'none'; });
+
+    if (value === q.correct) {
       Game.playSound('correct');
-      feedback.innerHTML = `<p style="color: var(--success);">${Icons.mat('check_circle', '16')} ${conf.feedback}</p>`;
-      Game.addScore(100);
-      Game.completeLevel(9);
-      Game.showToast(`${Icons.mat('check_circle', '16')} Level 9 Selesai!`, 'success');
+      this.state.objectCorrect++;
+      feedback.innerHTML = `<p style="color: var(--success);">${Icons.mat('check_circle', '16')} ${q.feedback}</p>`;
+      Game.addScore(25);
     } else {
       Game.playSound('wrong');
-      const hint = (conf.wrongHint && conf.wrongHint[value]) || 'Coba lagi!';
-      feedback.innerHTML = `<p style="color: var(--danger);">${Icons.mat('cancel', '16')} Salah! ${hint}</p>`;
+      feedback.innerHTML = `<p style="color: var(--danger);">${Icons.mat('cancel', '16')} Hampir! Jawaban yang benar adalah: ${q.correct}</p>`;
     }
+
+    buttons.forEach(btn => {
+      if (btn.textContent.trim().replace(/['"]/g, '') === q.correct.replace(/['"]/g, '')) {
+        btn.style.borderColor = 'var(--success)';
+        btn.style.background = 'rgba(0,212,160,0.1)';
+      }
+    });
+
+    this.state.objectRound++;
+    setTimeout(() => this.showObjectQuestion(), 1500);
   },
 
   // ========== BOSS BATTLE ==========
@@ -1546,6 +1811,8 @@ const Levels = {
       case 5: setTimeout(() => this.initLevel5(), 100); break;
       case 6: setTimeout(() => this.initLevel6(), 100); break;
       case 7: setTimeout(() => this.initLevel7(), 100); break;
+      case 8: setTimeout(() => this.initLevel8(), 100); break;
+      case 9: setTimeout(() => this.initLevel9(), 100); break;
     }
   },
 
