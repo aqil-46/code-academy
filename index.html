@@ -40,29 +40,49 @@
           </button>
       </div>
       
-      <div class="version-text">Code Academy © 2026</div>
+      <div class="version-text">v1.0 | Code Academy © 2026</div>
     </div>
 
     <!-- ========== INTRO STORY SCREEN ========== -->
     <div class="screen" id="intro-screen">
-      <div class="intro-content">
-        <div class="intro-avatar"><span class="material-symbols-outlined" style="font-size: 64px; color: var(--secondary);">school</span></div>
-        <h2><span class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">auto_stories</span> Prolog</h2>
+      <div class="intro-container">
+        <div class="intro-header">
+          <div class="intro-header-icon">
+            <span class="material-symbols-outlined">auto_stories</span>
+          </div>
+          <h2 class="intro-title">Prolog</h2>
+          <p class="intro-subtitle">Bacalah kisah awal sebelum memulai petualangan</p>
+        </div>
+
+        <div class="intro-avatar" id="intro-avatar"></div>
         
-        <div class="intro-story-box">
-          <p>
-            Hari pertama masuk <span class="highlight">Code Academy</span>, sekolah 
-            pemrograman paling bergengsi di dunia. Kamu, seorang siswa baru yang penuh 
-            semangat, siap memulai petualangan barumu.
-          </p>
-          <p>
-            Namun, saat orientasi dimulai... <span class="bug-highlight"><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">bug_report</span> BUG KING</span> 
-            menyerang! Sistem sekolah hancur! Setiap ruangan dipenuhi dengan bug dan error!
-          </p>
-          <p>
-            <strong>Hanya kamu yang bisa memperbaikinya.</strong><br>
-            Gunakan logika pemrograman untuk menyelamatkan Code Academy!
-          </p>
+        <div class="intro-story-cards">
+          <div class="intro-story-card card-beat1" style="animation-delay: 0.05s;">
+            <div class="intro-card-glow"></div>
+            <div class="intro-card-badge">BABAK 1</div>
+            <div class="intro-card-icon-wrap">
+              <span class="material-symbols-outlined intro-card-icon">school</span>
+            </div>
+            <p class="intro-card-text" data-text="Hari pertama masuk <strong>Code Academy</strong>, sekolah pemrograman paling bergengsi di dunia. Kamu, seorang siswa baru yang penuh semangat, siap memulai petualangan barumu."></p>
+          </div>
+          
+          <div class="intro-story-card card-beat2" style="animation-delay: 0.15s;">
+            <div class="intro-card-glow"></div>
+            <div class="intro-card-badge">BABAK 2</div>
+            <div class="intro-card-icon-wrap">
+              <span class="material-symbols-outlined intro-card-icon">bug_report</span>
+            </div>
+            <p class="intro-card-text" data-text='Namun, saat orientasi dimulai... <strong style="color: var(--accent);">BUG KING</strong> menyerang! Sistem sekolah hancur! Setiap ruangan dipenuhi dengan bug dan error!'></p>
+          </div>
+          
+          <div class="intro-story-card card-beat3" style="animation-delay: 0.25s;">
+            <div class="intro-card-glow"></div>
+            <div class="intro-card-badge">BABAK 3</div>
+            <div class="intro-card-icon-wrap">
+              <span class="material-symbols-outlined intro-card-icon">terminal</span>
+            </div>
+            <p class="intro-card-text" data-text="<strong>Hanya kamu yang bisa memperbaikinya.</strong><br>Gunakan logika pemrograman untuk menyelamatkan Code Academy!"></p>
+          </div>
         </div>
         
         <div class="intro-actions">
@@ -72,15 +92,19 @@
           <button class="btn btn-ghost" onclick="Game.showScreen('opening-screen')">
             <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Kembali
           </button>
+          <button class="btn-skip-typewriter hidden" id="skip-typewriter" onclick="Game.skipTypewriter()" style="display: none;">
+            <span class="material-symbols-outlined" style="font-size: 14px;">skip_next</span> Skip
+          </button>
         </div>
       </div>
     </div>
 
     <!-- ========== CHARACTER CREATOR SCREEN ========== -->
     <div class="screen" id="character-screen">
-      <h2 style="font-family: var(--pixel-font); font-size: 0.8rem; margin-bottom: 20px; color: var(--secondary); text-align: center;">
-        <span class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">palette</span> Create Your Character
-      </h2>
+      <div class="char-header-title">
+        <span class="material-symbols-outlined">palette</span>
+        Create Your Character
+      </div>
       
       <div class="character-creator">
         <div class="char-preview">
@@ -98,44 +122,54 @@
 
     <!-- ========== TUTORIAL SCREEN ========== -->
     <div class="screen" id="tutorial-screen">
-      <div class="tutorial-content">
-        <h2><span class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">menu_book</span> Tutorial Singkat</h2>
+      <div class="tutorial-container">
+        <div class="tutorial-header">
+          <div class="tutorial-header-icon">
+            <span class="material-symbols-outlined">menu_book</span>
+          </div>
+          <h2 class="tutorial-title">Tutorial Singkat</h2>
+          <p class="tutorial-subtitle">Pelajari cara bermain sebelum memulai petualangan</p>
+        </div>
         
-        <div class="tutorial-steps">
-          <div class="tutorial-step">
-            <div class="step-icon"><span class="material-symbols-outlined" style="font-size: 24px;">map</span></div>
-            <div class="step-text">
-              <h4>1. Dunia Code Academy</h4>
-              <p>Jelajahi peta dan pilih level yang ingin kamu mainkan.</p>
+        <div class="tutorial-cards">
+          <div class="tutorial-card card-step1" style="animation-delay: 0.05s;">
+            <div class="tutorial-card-glow"></div>
+            <div class="tutorial-card-badge">LANGKAH 1</div>
+            <div class="tutorial-card-icon-wrap">
+              <span class="material-symbols-outlined tutorial-card-icon">map</span>
             </div>
+            <h3 class="tutorial-card-title">Dunia Code Academy</h3>
           </div>
           
-          <div class="tutorial-step">
-            <div class="step-icon"><span class="material-symbols-outlined" style="font-size: 24px;">track_changes</span></div>
-            <div class="step-text">
-              <h4>2. Selesaikan Misi</h4>
-              <p>Setiap ruangan memiliki puzzle pemrograman yang unik.</p>
+          <div class="tutorial-card card-step2" style="animation-delay: 0.15s;">
+            <div class="tutorial-card-glow"></div>
+            <div class="tutorial-card-badge">LANGKAH 2</div>
+            <div class="tutorial-card-icon-wrap">
+              <span class="material-symbols-outlined tutorial-card-icon">track_changes</span>
             </div>
+            <h3 class="tutorial-card-title">Selesaikan Misi</h3>
           </div>
           
-          <div class="tutorial-step">
-            <div class="step-icon"><span class="material-symbols-outlined" style="font-size: 24px;">grade</span></div>
-            <div class="step-text">
-              <h4>3. Kumpulkan Skor</h4>
-              <p>Jawab benar untuk dapat poin. Kombokan untuk bonus!</p>
+          <div class="tutorial-card card-step3" style="animation-delay: 0.25s;">
+            <div class="tutorial-card-glow"></div>
+            <div class="tutorial-card-badge">LANGKAH 3</div>
+            <div class="tutorial-card-icon-wrap">
+              <span class="material-symbols-outlined tutorial-card-icon">grade</span>
             </div>
+            <h3 class="tutorial-card-title">Kumpulkan Skor</h3>
           </div>
           
-          <div class="tutorial-step">
-            <div class="step-icon"><span class="material-symbols-outlined" style="font-size: 24px;">bug_report</span></div>
-            <div class="step-text">
-              <h4>4. Kalahkan Bug King</h4>
-              <p>Selesaikan semua level untuk melawan Bug King!</p>
+          <div class="tutorial-card card-step4" style="animation-delay: 0.35s;">
+            <div class="tutorial-card-glow"></div>
+            <div class="tutorial-card-badge">LANGKAH 4</div>
+            <div class="tutorial-card-icon-wrap">
+              <span class="material-symbols-outlined tutorial-card-icon">bug_report</span>
             </div>
+            <h3 class="tutorial-card-title">Kalahkan Bug King</h3>
           </div>
         </div>
         
-        <div class="intro-actions">
+        <div class="tutorial-actions">
           <button class="btn btn-primary btn-lg" onclick="Game.showScreen('difficulty-screen')">
             <span class="material-symbols-outlined" style="font-size: 22px;">rocket_launch</span> Mulai!
           </button>
@@ -149,47 +183,29 @@
     <!-- ========== DIFFICULTY SELECTION SCREEN ========== -->
     <div class="screen" id="difficulty-screen">
       <div class="difficulty-container">
-        <h2 style="font-family: var(--pixel-font); font-size: 0.8rem; color: var(--secondary); text-align: center; margin-bottom: 8px;">
-          <span class="material-symbols-outlined" style="font-size: 24px; vertical-align: middle;">tune</span> Pilih Tingkat Kesulitan
-        </h2>
-        <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px;">Tentukan tantanganmu!</p>
+        <div class="diff-header">
+          <div class="diff-header-icon">
+            <span class="material-symbols-outlined">tune</span>
+          </div>
+          <h2 class="diff-title">Pilih Tingkat Kesulitan</h2>
+          <p class="diff-subtitle">Tentukan seberapa besar tantangan yang kamu hadapi</p>
+        </div>
 
         <div class="difficulty-cards">
-          <div class="difficulty-card easy" onclick="Game.selectDifficulty('easy')">
-            <div class="diff-icon"><span class="material-symbols-outlined" style="font-size: 40px; color: var(--success);">sentiment_satisfied</span></div>
-            <h3>Easy</h3>
-            <p class="diff-label">Pemula</p>
-            <ul class="diff-features">
-              <li>Soal dasar</li>
-              <li>Hint tersedia</li>
-              <li>Cocok untuk belajar</li>
-            </ul>
+          <div class="difficulty-card card-easy" onclick="Game.selectDifficulty('easy')" style="animation-delay: 0.05s;">
+            <h3 class="diff-card-title">Easy</h3>
           </div>
 
-          <div class="difficulty-card normal" onclick="Game.selectDifficulty('normal')">
-            <div class="diff-icon"><span class="material-symbols-outlined" style="font-size: 40px; color: var(--warning);">local_fire_department</span></div>
-            <h3>Normal</h3>
-            <p class="diff-label">Menengah</p>
-            <ul class="diff-features">
-              <li>Soal lebih kompleks</li>
-              <li>Lebih banyak tantangan</li>
-              <li>Untuk yang sudah paham dasar</li>
-            </ul>
+          <div class="difficulty-card card-normal" onclick="Game.selectDifficulty('normal')" style="animation-delay: 0.15s;">
+            <h3 class="diff-card-title">Normal</h3>
           </div>
 
-          <div class="difficulty-card hard" onclick="Game.selectDifficulty('hard')">
-            <div class="diff-icon"><span class="material-symbols-outlined" style="font-size: 40px; color: var(--danger);">whatshot</span></div>
-            <h3>Hard</h3>
-            <p class="diff-label">Sulit</p>
-            <ul class="diff-features">
-              <li>Soal tingkat lanjut</li>
-              <li>Konsep advanced</li>
-              <li>Untuk programmer sejati</li>
-            </ul>
+          <div class="difficulty-card card-hard" onclick="Game.selectDifficulty('hard')" style="animation-delay: 0.25s;">
+            <h3 class="diff-card-title">Hard</h3>
           </div>
         </div>
 
-        <button class="btn btn-ghost btn-sm" style="margin-top: 16px;" onclick="Game.showScreen('tutorial-screen')">
+        <button class="btn btn-ghost" onclick="Game.showScreen('tutorial-screen')">
           <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Kembali
         </button>
       </div>
@@ -207,16 +223,19 @@
       <div class="world-hub">
         <div class="world-header">
           <div class="hud-item">
-            <span class="icon material-symbols-outlined">home</span>
-            <span>Code Academy</span>
-          </div>
-          <div class="hud-item">
             <span class="icon material-symbols-outlined">grade</span>
             <span class="value" id="hud-score">0</span>
           </div>
           <div class="hud-item">
             <span class="icon material-symbols-outlined">flag</span>
             <span id="hud-level">Level 1</span>
+          </div>
+          <div class="hud-item hud-progress-item">
+            <span class="icon material-symbols-outlined">trending_up</span>
+            <span id="hud-progress">0%</span>
+            <div class="hud-progress-track">
+              <div class="hud-progress-fill" id="hud-progress-bar" style="width:0%"></div>
+            </div>
           </div>
           <div class="hud-item">
             <span class="icon material-symbols-outlined">speed</span>
@@ -409,6 +428,15 @@
           <label><span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">auto_awesome</span> Particle Effect</label>
           <div class="toggle" data-setting="particles" onclick="this.classList.toggle('active')">
             <div class="toggle-knob"></div>
+          </div>
+        </div>
+        
+        <div class="setting-item">
+          <label><span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">keyboard</span> Typing Speed</label>
+          <div class="speed-selector" data-setting="typingSpeed">
+            <button class="speed-opt" data-value="slow" onclick="Game.setTypingSpeed('slow')">Lambat</button>
+            <button class="speed-opt active" data-value="normal" onclick="Game.setTypingSpeed('normal')">Normal</button>
+            <button class="speed-opt" data-value="fast" onclick="Game.setTypingSpeed('fast')">Cepat</button>
           </div>
         </div>
         
