@@ -38,7 +38,8 @@ const Storage = {
       settings: {
         music: true,
         sfx: true,
-        particles: true
+        particles: true,
+        typingSpeed: 'normal'
       },
       timestamp: Date.now()
     };
